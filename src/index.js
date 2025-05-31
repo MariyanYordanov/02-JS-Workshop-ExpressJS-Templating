@@ -14,7 +14,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Add and coning view engine
 app.engine('hbs', handlebars.engine({
-    extname: 'hbs'
+    extname: 'hbs',
+    helpers: {
+        showRating(rating) {
+            return '★'.repeat(rating) + '☆'.repeat(10 - rating);
+        },
+    }   
 }));
 app.set('view engine', 'hbs');
 app.set('views', 'src/views');
