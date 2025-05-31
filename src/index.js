@@ -29,6 +29,11 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
+// 404 Not Found handler
+app.all('*url', (req, res) => {
+    res.status(404).render('404', { title: 'Page Not Found' });
+});
+
 app.listen(3000, () => {
     console.log("Server is listening on http://localhost:3000");
 });

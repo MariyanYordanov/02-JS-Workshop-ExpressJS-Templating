@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 const movies = [
     {
-        id: '1',
+        id: 'dc1e4f72-b38e-4645-a62f-b7554fdf013e',
         title: "Home Alone",
         director: "Chris Columbus",
         releaseYear: 1990,
@@ -13,7 +13,7 @@ const movies = [
         category: "movie"
     },
     {
-        id: '2',
+        id: 'c4d2fd45-a6d5-4c9c-a457-2134f0c202b1',
         title: "The Little Mermaid",
         director: "Ron Clements",
         releaseYear: 1989,
@@ -24,7 +24,7 @@ const movies = [
         category: "movie"
     },
     {
-        id: '3',
+        id: 'b9a2ea3f-e595-40ad-8f9c-5c183aeac6ce',
         title: "Jungle Cruise",
         director: "Jaume Collet-Serra",
         releaseYear: 2021,

@@ -11,14 +11,21 @@ movieController.get('/create', (req, res) => {
 movieController.post('/create', (req, res) => {
     const newMovie = req.body;
     movieService.createMovie(newMovie);
-    res.redirect('/');  
+    res.redirect('/');
 });
 
 // Movie details route
-movieController.get("/:id/details", (req, res) => {
+movieController.get('/:id/details', (req, res) => {
     const movieId = req.params.id;
-    const movie = movieService.getMovieById(movieId);    
+    const movie = movieService.getMovieById(movieId);
     res.render('details', { movie });
+});
+
+// Movie search route
+movieController.get('/search', (req, res) => {
+    //const query = req.query.q;
+    //const movies = movieService.searchMovies(query);
+    res.render('search', /*{ movies, query }*/);
 });
 
 export default movieController;
