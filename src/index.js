@@ -9,6 +9,9 @@ const app = express();
 // Middleware to serve static files
 app.use(express.static('src/public'));
 
+// Add bodyparser
+app.use(express.urlencoded({ extended: true }));
+
 // Add and coning view engine
 app.engine('hbs', handlebars.engine({
     extname: 'hbs'
