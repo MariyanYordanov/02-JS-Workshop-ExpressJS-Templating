@@ -1,6 +1,6 @@
 const movies = [
     {
-        id: 1,
+        id: '1',
         title: "Home Alone",
         director: "Chris Columbus",
         releaseYear: 1990,
@@ -11,7 +11,7 @@ const movies = [
         category: "movie"
     },
     {
-        id: 2,
+        id: '2',
         title: "The Little Mermaid",
         director: "Ron Clements",
         releaseYear: 1989,
@@ -22,7 +22,7 @@ const movies = [
         category: "movie"
     },
     {
-        id: 3,
+        id: '3',
         title: "Jungle Cruise",
         director: "Jaume Collet-Serra",
         releaseYear: 2021,
@@ -42,5 +42,12 @@ export default {
     createMovie(movieData) {
         movies.push(movieData);
         return movieData;
-    }
+    },
+    getMovieById(movieId) {
+        const movie = movies.find(movie => movie.id === movieId);
+        if (!movie) {
+            throw new Error(`Movie with id ${movieId} not found`);
+        }
+        return movie;
+    },
 } 
