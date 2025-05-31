@@ -1,0 +1,21 @@
+{
+  "name": "02-js-workshop-expressjs-templating",
+  "version": "1.0.0",
+  "description": "Softuni JavaScript Workshop - Express.js Templating",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MariyanYordanov/02-JS-Workshop-ExpressJS-Templating.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MariyanYordanov/02-JS-Workshop-ExpressJS-Templating/issues"
+  },
+  "homepage": "https://github.com/MariyanYordanov/02-JS-Workshop-ExpressJS-Templating#readme",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "MSY",
+  "license": "MIT",
+  "type": "module"
+}
