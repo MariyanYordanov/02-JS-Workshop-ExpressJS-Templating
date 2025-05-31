@@ -39,4 +39,5 @@ export default{
     getAllMovies() {
         return movies;
     }
+    
 } 

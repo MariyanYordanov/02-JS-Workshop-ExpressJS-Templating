@@ -1,6 +1,7 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import homeController from "./controllers/homeController.js";
+import movieController from "./controllers/movieController.js";
 
 // Init express instance
 const app = express();
@@ -17,6 +18,7 @@ app.set('views', 'src/views');
 
 // Use routes
 app.use(homeController);
+app.use(movieController);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
