@@ -18,7 +18,7 @@ app.set('views', 'src/views');
 
 // Use routes
 app.use(homeController);
-app.use(movieController);
+app.use('/movies', movieController);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
