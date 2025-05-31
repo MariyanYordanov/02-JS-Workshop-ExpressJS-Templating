@@ -1,5 +1,6 @@
 import express from "express";
 import handlebars from "express-handlebars";
+import homeController from "./controllers/homeController.js";
 
 // Init express instance
 const app = express();
@@ -11,16 +12,16 @@ app.use(express.static('src/public'));
 app.engine('hbs', handlebars.engine({
     extname: 'hbs'
 }));
-
 app.set('view engine', 'hbs');
 app.set('views', 'src/views');
 
-app.get("/", (req, res) => {
-    res.render('home');
-});
+// Use routes
+app.use(homeController);
 
-app.get("/about", (req, res) => {
-    res.render('about');
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
 
 app.listen(3000, () => {
