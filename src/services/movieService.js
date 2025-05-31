@@ -53,6 +53,8 @@ export default {
     },
     createMovie(movieData) {
         movieData.id = uuid();
+        movieData.rating = Number(movieData.rating);
+        movieData.releaseYear = Number(movieData.releaseYear);
         movies.push(movieData);
         return movieData;
     },
