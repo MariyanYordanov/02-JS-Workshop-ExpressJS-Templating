@@ -1,10 +1,12 @@
 import { Router } from "express";
+import movieService from "../services/movieService.js";
 
 const homeController = Router();
 
 // Home route
 homeController.get("/", (req, res) => {
-    res.render('home');
+    const movies = movieService.getAllMovies();
+    res.render('home', { movies });
 });
 
 // About route
