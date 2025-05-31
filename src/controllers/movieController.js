@@ -23,9 +23,9 @@ movieController.get('/:id/details', (req, res) => {
 
 // Movie search route
 movieController.get('/search', (req, res) => {
-    //const query = req.query.q;
-    //const movies = movieService.searchMovies(query);
-    res.render('search', /*{ movies, query }*/);
+    const filter = req.query;
+    const movies = movieService.getAllMovies(filter);
+    res.render('search', { movies });
 });
 
 export default movieController;

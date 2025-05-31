@@ -38,8 +38,18 @@ const movies = [
 
 // object method notation
 export default {
-    getAllMovies() {
-        return movies;
+    getAllMovies(filter = {}) {
+        let result = movies.slice();
+        if (filter.search) {
+            result = result.filter(movie => movie.title.toLowerCase().includes(filter.search.toLowerCase()));
+        }
+        if (filter.genre) {
+            result = result.filter(movie => movie.genre.localeCompare(filter.genre, undefined, { sensitivity: 'base' }) === 0);
+        }
+        if (filter.releaseYear) {
+            result = result.filter(movie => movie.releaseYear === Number(filter.releaseYear));
+        }
+        return result;
     },
     createMovie(movieData) {
         movieData.id = uuid();
