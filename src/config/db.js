@@ -4,8 +4,6 @@ async function connectDB() {
     try {
         await mongoose.connect('mongodb://localhost:27017/movies', {
             dbName: 'movies',
-            useNewUrlParser: true,
-            useUnifiedTopology: true
         });
         console.log("Connected to MongoDB");
     } catch (error) {
