@@ -8,9 +8,9 @@ movieController.get('/create', (req, res) => {
     res.render('create');
 });
 
-movieController.post('/create', (req, res) => {
+movieController.post('/create', async (req, res) => {
     const newMovie = req.body;
-    movieService.createMovie(newMovie);
+    await movieService.createMovie(newMovie);
     res.redirect('/');
 });
 
@@ -22,10 +22,10 @@ movieController.get('/:id/details', (req, res) => {
 });
 
 // Movie search route
-movieController.get('/search', (req, res) => {
+movieController.get('/search',async (req, res) => {
     const filter = req.query;
-    const movies = movieService.getAllMovies(filter);
-    res.render('search', { movies });
+    const movies = await movieService.getAllMovies(filter);
+    res.render('search', { movies, filter });
 });
 
 export default movieController;
