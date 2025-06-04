@@ -1,7 +1,8 @@
 import express from "express";
-import handlebars from "express-handlebars";
 import homeController from "./controllers/homeController.js";
 import movieController from "./controllers/movieController.js";
+import connectDB from "./config/db.js";
+import hbsConfig from "./config/hbs.js";
 
 // Init express instance
 const app = express();
@@ -13,16 +14,10 @@ app.use(express.static('src/public'));
 app.use(express.urlencoded({ extended: true }));
 
 // Add and coning view engine
-app.engine('hbs', handlebars.engine({
-    extname: 'hbs',
-    helpers: {
-        showRating(rating) {
-            return '★'.repeat(rating) + '☆'.repeat(10 - rating);
-        },
-    }   
-}));
-app.set('view engine', 'hbs');
-app.set('views', 'src/views');
+hbsConfig(app);
+
+// mongoose connection
+connectDB();
 
 // Use routes
 app.use(homeController);
