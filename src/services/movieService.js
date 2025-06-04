@@ -3,7 +3,7 @@ import Movie from '../models/Movie.js';
 // object method notation
 export default {
     async getAllMovies(filter = {}) {
-        let result = await Movie.find({});
+        let result = await Movie.find({}).lean();
 
         if (filter.title) {
             result = result.filter(movie => movie.title.toLowerCase().includes(filter.title.toLowerCase()));

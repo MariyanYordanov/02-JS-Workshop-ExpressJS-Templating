@@ -9,7 +9,7 @@ const movieSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Romance'],
+        enum: ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Romance', 'Thriller', 'Documentary', 'Fantasy', 'Animation', 'Crime'],
         default: 'Drama'
     },
     genres: {
@@ -41,7 +41,8 @@ const movieSchema = new mongoose.Schema({
         required: true,
         min: 0,
         max: 10
-    }, description: {
+    }, 
+    description: {
         type: String,
         required: true,
         trim: true
@@ -51,4 +52,5 @@ const movieSchema = new mongoose.Schema({
 }); 
 
 const Movie = mongoose.model('Movie', movieSchema);
+
 export default Movie;

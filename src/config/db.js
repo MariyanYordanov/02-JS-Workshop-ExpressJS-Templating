@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 async function connectDB() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/movies', {
+        await mongoose.connect('mongodb://127.0.0.1:27017/movies', {
             dbName: 'movies',
         });
         console.log("Connected to MongoDB");
