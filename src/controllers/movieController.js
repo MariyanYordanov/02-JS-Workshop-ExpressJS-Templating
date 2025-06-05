@@ -18,7 +18,7 @@ movieController.post('/create', async (req, res) => {
         res.redirect('/');
     } catch (err) {
         console.error(err);
-        res.status(400).send('Invalid movie data');
+        res.status(400).send('Invalid movie data', err.message);
     }
 });
 

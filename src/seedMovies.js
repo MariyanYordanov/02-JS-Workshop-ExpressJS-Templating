@@ -1,7 +1,7 @@
 // seed movies to mongodb// This script connects to the MongoDB database and seeds it with a predefined list of movies.
 // It uses the Mongoose library to interact with the database and the Movie model to insert the movie documents.import mongoose from "mongoose";
-import Movie from "../src/models/Movie.js";
-import connectDB from "../src/config/db.js";
+import Movie from "./models/Movie.js";
+import connectDB from "./config/db.js";
 import mongoose from "mongoose";
 
 async function seedMovies() {
