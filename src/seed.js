@@ -10,7 +10,7 @@ async function seedMovies() {
     const movies = [
         {
             title: "Interstellar",
-            category: "Sci-Fi",
+            category: "Documentary",
             genres: ["Adventure", "Drama", "Sci-Fi"],
             director: "Christopher Nolan",
             releaseYear: new Date("2014-11-07"),
@@ -20,7 +20,7 @@ async function seedMovies() {
         },
         {
             title: "Fight Club",
-            category: "Drama",
+            category: "TV Show",
             genres: ["Drama"],
             director: "David Fincher",
             releaseYear: new Date("1999-10-15"),
@@ -30,7 +30,7 @@ async function seedMovies() {
         },
         {
             title: "The Godfather",
-            category: "Drama",
+            category: "Animation",
             genres: ["Crime", "Drama"],
             director: "Francis Ford Coppola",
             releaseYear: new Date("1972-03-24"),
@@ -40,7 +40,7 @@ async function seedMovies() {
         },
         {
             title: "Pulp Fiction",
-            category: "Crime",
+            category: "Movie",
             genres: ["Crime", "Drama"],
             director: "Quentin Tarantino",
             releaseYear: new Date("1994-10-14"),

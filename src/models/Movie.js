@@ -9,8 +9,8 @@ const movieSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Romance', 'Thriller', 'Documentary', 'Fantasy', 'Animation', 'Crime'],
-        default: 'Drama'
+        enum: ['movie', 'tv-show', 'documentary', 'animation', 'short-film'],
+        default: 'movie',
     },
     genres: {
         type: [String],
@@ -28,7 +28,7 @@ const movieSchema = new mongoose.Schema({
         trim: true
     },
     releaseYear: {
-        type: Date,
+        type: Number,
         required: true
     },
     imageUrl: {
