@@ -3,6 +3,7 @@ import homeController from "./controllers/homeController.js";
 import movieController from "./controllers/movieController.js";
 import connectDB from "./config/db.js";
 import hbsConfig from "./config/hbs.js";
+import castController from "./controllers/castController.js";
 
 // Init express instance
 const app = express();
@@ -22,6 +23,7 @@ connectDB();
 // Use routes
 app.use(homeController);
 app.use('/movies', movieController);
+app.use('/casts', castController);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
