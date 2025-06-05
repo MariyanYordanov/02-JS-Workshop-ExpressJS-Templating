@@ -2,19 +2,8 @@
 import Cast from '../models/Cast.js';
 
 export default {
-    async getAllCastMembers(filter = {}) {
-        let result = await Cast.find({});
-
-        if (filter.name) {
-            result = result.filter(cast => cast.name.toLowerCase().includes(filter.name.toLowerCase()));
-        }
-        if (filter.age) {
-            result = result.filter(cast => cast.age === Number(filter.age));
-        }
-        if (filter.born) {
-            result = result.filter(cast => cast.born.getFullYear() === Number(filter.born));
-        }
-        return result;
+    getAllCastMembers() {
+        return Cast.find({});
     },
     createCastMember(castData) {
         const cast = new Cast({ ...castData });
