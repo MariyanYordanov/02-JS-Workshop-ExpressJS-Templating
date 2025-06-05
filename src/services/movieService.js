@@ -27,4 +27,9 @@ export default {
         }
         return movie;
     },
+    async attachCastMember(movieId, castId){
+        const movie = await this.getMovieById(movieId);
+        movie.casts.push(castId);
+        return movie.save();
+    }
 } 

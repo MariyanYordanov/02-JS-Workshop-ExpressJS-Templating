@@ -38,12 +38,12 @@ const movieSchema = new mongoose.Schema({
         type: String,
         required: [true,'ImageUrl is required!'],
         trim: true,
-        validate: {
-            validator: function (v) {
-                return /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i.test(v);
-            },
-            message: 'Invalid image URL format!'
-        }
+        // validate: {
+        //     validator: function (v) {
+        //         return /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i.test(v);
+        //     },
+        //     message: 'Invalid image URL format!'
+        // }
     },
     rating: {
         type: Number,
@@ -57,6 +57,10 @@ const movieSchema = new mongoose.Schema({
         trim: true,
         maxlength: [500, 'Description is to long!'] // Optional: limit description length
     },
+    casts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cast',
+    }]
 }, {
     timestamps: true 
 }); 
