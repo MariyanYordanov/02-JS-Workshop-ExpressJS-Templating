@@ -20,8 +20,8 @@ export default {
         const movie = new Movie({...movieData});
         return movie.save();
     },
-    getMovieById(movieId) {
-        const movie = movies.find(movie => movie.id === movieId);
+    async getMovieById(movieId) {
+        const movie = await Movie.findById(movieId);
         if (!movie) {
             throw new Error(`Movie with id ${movieId} not found`);
         }
