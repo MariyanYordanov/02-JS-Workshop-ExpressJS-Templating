@@ -14,18 +14,20 @@ movieController.post('/create', async (req, res) => {
     res.redirect('/');
 });
 
-// Movie details route
-movieController.get('/:id/details', (req, res) => {
-    const movieId = req.params.id;
-    const movie = movieService.getMovieById(movieId);
-    res.render('details', { movie });
-});
-
 // Movie search route
-movieController.get('/search',async (req, res) => {
+movieController.get('/search', async (req, res) => {
     const filter = req.query;
     const movies = await movieService.getAllMovies(filter);
     res.render('search', { movies, filter });
 });
+
+// Movie details route
+movieController.get('/:id/details', async (req, res) => {
+    const movieId = req.params.id;
+    const movie = await movieService.getMovieById(movieId);
+    res.render('details', { movie });
+});
+
+
 
 export default movieController;

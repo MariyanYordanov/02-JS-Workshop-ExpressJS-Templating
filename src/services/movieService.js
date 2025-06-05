@@ -3,7 +3,7 @@ import Movie from '../models/Movie.js';
 // object method notation
 export default {
     async getAllMovies(filter = {}) {
-        let result = await Movie.find({}).lean();
+        let result = await Movie.find({});;
 
         if (filter.title) {
             result = result.filter(movie => movie.title.toLowerCase().includes(filter.title.toLowerCase()));
@@ -21,7 +21,7 @@ export default {
         return movie.save();
     },
     async getMovieById(movieId) {
-        const movie = await Movie.findById(movieId);
+        const movie = await Movie.findById(movieId);;
         if (!movie) {
             throw new Error(`Movie with id ${movieId} not found`);
         }
