@@ -1,46 +1,9 @@
-import Cast from "./models/Cast.js";
-import connectDB from "./config/db.js";
+import Cast from "./src/models/Cast.js";
+import connectDB from "./src/config/db.js";
 import mongoose from "mongoose";
 
 async function seedCast() {
     await connectDB();
-
-    /*
-    name: {
-        type: String,
-        required: [true, 'Name is required!'],
-        trim: true
-    },
-    age: {
-        type: Number,
-        required: [true, 'Age is required!'],
-        min: 0
-    },
-    born: {
-        type: Date,
-        required: [true, 'Born date is required!']
-    },
-    // name in movie: {
-    //     type: String,
-    //     required: [true, 'Name in movie is required!'],
-    //     trim: true
-    // },
-    imageUrl: {
-        type: String,
-        required: [true, 'ImageUrl is required!'],
-        trim: true,
-        validate: {
-            validator: function (v) {
-                return /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i.test(v);
-            },
-            message: 'Invalid image URL format!'
-        }
-    },
-    // movies: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Movie',
-    //     required: [true, 'At least one movie is required!']
-    // }] */
 
     const castMembers = [
         {
@@ -71,7 +34,37 @@ async function seedCast() {
             name: "Mark Ruffalo",
             age: 56,
             born: new Date("1967-11-22"),
-            imageUrl: "https://example.com/mark-ruffalo.jpg"
+            imageUrl: "https://examplejpg.com/mark-ruffalo.jpg"
+        },
+        {
+            name: "Test",
+            age: 42,
+            born: new Date("1981-06-13"),
+            imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREoIKQIGtYhC0ufGFsJQl6TcR1VMdhjq1A9g&usqp=CAU"
+        },
+        {
+            name: "Benedict Cumberbatch",
+            age: 47,
+            born: new Date("1976-07-19"),
+            imageUrl: "https://example.com/benedict-cumberbatch.jpg"
+        },
+        {
+            name: "Tom Holland",
+            age: 27,
+            born: new Date("1996-06-01"),
+            imageUrl: "https://example.com/tom-holland.jpg"
+        },
+        {
+            name: "Samuel L. Jackson",
+            age: 74,
+            born: new Date("1948-12-21"),
+            imageUrl: "https://example.com/samuel-l-jackson.jpg"
+        },
+        {
+            name: "Brie Larson",
+            age: 34,
+            born: new Date("1989-10-01"),
+            imageUrl: "https://example.com/brie-larson.jpg"
         }
     ];
 
