@@ -43,9 +43,19 @@ movieController.get('/:movieId/cast-attach', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getMovieById(movieId);
     const castMembers = await castService.getAllCastMembers();
-    console.log(`Movie: ${movie.title}, Cast Members: ${castMembers.length}`);
- 
     res.render('cast-attach', { movie, castMembers });
+});
+
+movieController.post('/:movieId/cast-attach', async (req, res) => {
+    const movieId = req.params.movieId;
+    const castId = req.body.castId;
+    try {
+        await movieService.attachCastMember(movieId, castId);
+        res.redirect(`/${movieId}/details`);
+    } catch (err) {
+        console.error(err);
+        res.status(400).send('Error attaching cast member', err.message);
+    }
 });
 
 export default movieController;
