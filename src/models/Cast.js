@@ -12,7 +12,7 @@ const castSchema = new mongoose.Schema({
         min: 0
     },
     born: {
-        type: Date,
+        type: String,
         required: [true, 'Born date is required!']
     },
     // name in movie: {
@@ -24,12 +24,12 @@ const castSchema = new mongoose.Schema({
         type: String,
         required: [true, 'ImageUrl is required!'],
         trim: true,
-        validate: {
-            validator: function (v) {
-                return /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i.test(v);
-            },
-            message: 'Invalid image URL format!'
-        }
+        // validate: {
+        //     validator: function (v) {
+        //         return /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i.test(v); 
+        //     },
+        //     message: 'Invalid image URL format!'
+        // }
     },
     // movies: [{
     //     type: mongoose.Schema.Types.ObjectId,
