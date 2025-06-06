@@ -7,7 +7,7 @@
                 <h1>{{movie.title}}</h1>
                 <div class="card-movie">
                     <div class="first-info">
-                        <p class="card-genre">Genre: {{movie.genre}}</p>
+                        <p class="card-genre">Genre: {{#each movie.genres}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>
                         <p class="card-director">Directror: {{movie.director}}</p>
 
                     </div>
@@ -37,12 +37,12 @@
         {{#each cast}}
         <div class="cast-card">
             <div class="card-img">
-                <img src="{{cast.imageUrl}}" alt="{{cast.name}} poster">
+                <img src="{{imageUrl}}" alt="{{name}} poster">
             </div>
             <div class="cast-info">
-                <h1>{{cast.name}}</h1>
-                <h3>Age: {{cast.age}}</h3>
-                <h3>Born: {{cast.born}}</h3>
+                <h1>{{name}}</h1>
+                <h3>Age: {{age}}</h3>
+                <h3>Born: {{born}}</h3>
                 <h3>Name in Movie: Ariel</h3>
             </div>
         </div>

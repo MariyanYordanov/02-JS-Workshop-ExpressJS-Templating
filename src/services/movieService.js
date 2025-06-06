@@ -23,7 +23,7 @@ export default {
         return movie.save();
     },
     async getMovieById(movieId) {
-        const movie = await Movie.findById(movieId);;
+        const movie = await Movie.findById(movieId).populate('casts');
         if (!movie) {
             throw new Error(`Movie with id ${movieId} not found`);
         }
