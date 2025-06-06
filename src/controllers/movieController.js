@@ -38,7 +38,8 @@ movieController.get('/search', async (req, res) => {
 movieController.get('/:id/details', async (req, res) => {
     const movieId = req.params.id;
     const movie = await movieService.getMovieById(movieId);
-    res.render('details', { movie });
+    const cast = await movieService.getCastForMovie(movieId);
+    res.render('details', { movie, cast });
 });
 
 // Movie attach routes

@@ -1,4 +1,6 @@
 import Movie from '../models/Movie.js';
+import Cast from '../models/Cast.js';
+import mongoose from 'mongoose';
 
 // object method notation
 export default {
@@ -31,5 +33,10 @@ export default {
         const movie = await this.getMovieById(movieId);
         movie.casts.push(castId);
         return movie.save();
+    },
+    async getCastForMovie(movieId){
+        const movie = await this.getMovieById(movieId);
+        const cast = await Cast.find().in('_id', movie.casts);
+        return cast;
     }
 } 
