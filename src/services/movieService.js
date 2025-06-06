@@ -1,22 +1,21 @@
 import Movie from '../models/Movie.js';
-import Cast from '../models/Cast.js';
-import mongoose from 'mongoose';
 
 // object method notation
 export default {
-    async getAllMovies(filter = {}) {
-        let result = await Movie.find({});;
-
-        if (filter.title) {
-            result = result.filter(movie => movie.title.toLowerCase().includes(filter.title.toLowerCase()));
+    getAllMovies(filter = {}) {
+        let query = Movie.find();
+        
+        if (filter.search) {
+            query = query.find({ title: { $regex: new RegExp(filter.search, 'i') } } );
         }
         if (filter.genre) {
-            result = result.filter(movie => movie.genre.localeCompare(filter.genre, undefined, { sensitivity: 'base' }) === 0);
+            query = query.find({genre: filter.genre.toLowerCase()} )
         }
         if (filter.releaseYear) {
-            result = result.filter(movie => movie.releaseYear === Number(filter.releaseYear));
+            query = query.where('releaseYear').equals(filter.releaseYear);
         }
-        return result;
+
+        return query;
     },
     createMovie(movieData) {
         const movie = new Movie({...movieData});
@@ -34,9 +33,9 @@ export default {
         movie.casts.push(castId);
         return movie.save();
     },
-    async getCastForMovie(movieId){
-        const movie = await this.getMovieById(movieId);
-        const cast = await Cast.find().in('_id', movie.casts);
-        return cast;
-    }
+    // async getCastForMovie(movieId){
+    //     const movie = await this.getMovieById(movieId);
+    //     const cast = await Cast.find().in('_id', movie.casts);
+    //     return cast;
+    // }
 } 

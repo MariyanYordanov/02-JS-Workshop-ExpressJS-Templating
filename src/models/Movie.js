@@ -21,7 +21,8 @@ const movieSchema = new mongoose.Schema({
                 return v.length > 0;
             },
             message: 'At least one genre is required.'
-        }
+        },
+        lowercase: true,
     },
     director: {
         type: String,
