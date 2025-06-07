@@ -1,0 +1,55 @@
+import { Router } from "express";
+import authService from "../services/authService.js";
+
+const authController = Router();
+
+// User registration route
+authController.get("/register", (req, res) => {
+    res.render("register");
+});
+
+authController.post("/register", async (req, res) => {
+    try {
+        const userData = req.body;
+        await authService.register(userData);
+        res.redirect("/auth/login");
+    } catch (err) {
+        console.error(err);
+        res.status(400).send("Invalid registration data", err.message);
+    }
+});
+
+// User login route
+authController.get("/login", (req, res) => {
+    res.render("login");
+});
+
+authController.post("/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await authService.login(username, password);
+        
+        if (user) {
+            req.session.user = user; // Store user in session
+            res.redirect("/");
+        } else {
+            res.status(401).send("Invalid username or password");
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(400).send("Login failed", err.message);
+    }
+});
+
+// User logout route
+authController.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Logout failed");
+        }
+        res.redirect("/");
+    });
+});
+
+export default authController;
