@@ -17,3 +17,10 @@ export const auth = (req, res, next) => {
         res.redirect('/auth/login');
     }
 }
+
+export const isAuthenticated = (req, res, next) => {
+    if (!req.user) {
+        return res.redirect('/auth/login');
+    }
+    next();
+}

@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import castService from '../services/castService.js';
+import { isAuthenticated } from '../middlewares/authMiddleware.js';
 
 const castController = Router();
 
 // Cast create routes
-castController.get('/create', (req, res) => {
+castController.get('/create', isAuthenticated, (req, res) => {
     res.render('cast-create', { pageTitle: 'Create' });
 });
 
-castController.post('/create', async (req, res) => {
+castController.post('/create', isAuthenticated, async (req, res) => {
     try {
         const newCastMember = req.body;
         await castService.createCastMember(newCastMember);

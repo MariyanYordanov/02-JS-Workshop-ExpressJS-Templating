@@ -12,12 +12,6 @@ routes.use('/movies', movieController);
 routes.use('/casts', castController);
 routes.use('/auth', authController);
 
-// Error handling middleware
-routes.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
-
 // 404 Not Found handler
 routes.all('*url', (req, res) => {
     res.status(404).render('404', { title: 'Page Not Found' });

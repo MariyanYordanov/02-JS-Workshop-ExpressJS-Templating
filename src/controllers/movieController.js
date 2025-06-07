@@ -2,16 +2,17 @@ import { Router } from 'express';
 import movieService from '../services/movieService.js';
 import castService from '../services/castService.js';
 import getCategoryOptionsViewData from '../utils/movieUtils.js';
+import { isAuthenticated } from '../middlewares/authMiddleware.js';
 
 const movieController = Router();
 
 // Movie create routes
-movieController.get('/create', (req, res) => {
+movieController.get('/create', isAuthenticated, (req, res) => {
     const categories = getCategoryOptionsViewData();
     res.render('create', { pageTitle: 'Create', categories });
 });
 
-movieController.post('/create', async (req, res) => {
+movieController.post('/create', isAuthenticated, async (req, res) => {
     try {
         const userId = req.user?.id;
         const newMovie = req.body;
@@ -40,14 +41,14 @@ movieController.get('/:id/details', async (req, res) => {
 });
 
 // Movie attach routes
-movieController.get('/:movieId/cast-attach', async (req, res) => {
+movieController.get('/:movieId/cast-attach', isAuthenticated, async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getMovieById(movieId);
     const castMembers = await castService.getAllCastMembers({ exclude: movie.casts});
     res.render('cast-attach', { movie, castMembers, pageTitle: 'Attach' });
 });
 
-movieController.post('/:movieId/cast-attach', async (req, res) => {
+movieController.post('/:movieId/cast-attach', isAuthenticated, async (req, res) => {
     const movieId = req.params.movieId;
     const castId = req.body.castId;
     try {
@@ -60,7 +61,7 @@ movieController.post('/:movieId/cast-attach', async (req, res) => {
 });
 
 // Movie delete route
-movieController.get('/:id/delete', async (req, res) => {
+movieController.get('/:id/delete', isAuthenticated, async (req, res) => {
     const movieId = req.params.id;
     const isCreator = req.user?.id === (await movieService.getMovieById(movieId)).creator.toString();
     if (!isCreator) {
@@ -76,7 +77,7 @@ movieController.get('/:id/delete', async (req, res) => {
 });
 
 // Movie edit routes
-movieController.get('/:id/edit', async (req, res) => {
+movieController.get('/:id/edit', isAuthenticated, async (req, res) => {
     const movieId = req.params.id;
     if (!movieId) {
         return res.status(404).send('Movie not found');
@@ -97,7 +98,7 @@ movieController.get('/:id/edit', async (req, res) => {
     res.render('edit', { movie, categories: categoryViewData, pageTitle: 'Edit'});
 });
 
-movieController.post('/:id/edit', async (req, res) => {
+movieController.post('/:id/edit', isAuthenticated, async (req, res) => {
     const movieId = req.params.id;
     if (!movieId) {
         return res.status(404).send('Movie not found');
