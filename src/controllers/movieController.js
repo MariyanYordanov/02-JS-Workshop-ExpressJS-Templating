@@ -11,21 +11,15 @@ movieController.get('/create', (req, res) => {
 
 movieController.post('/create', async (req, res) => {
     try {
-        // Променяме 'genre' на 'genres' защото в модела полето се казва 'genres'
-        req.body.genres = req.body.genres.split(',').map(g => g.trim());
-        req.body.category = req.body.category.toLowerCase();
-        req.body.releaseYear = Number(req.body.releaseYear);
-
+        const userId = req.user?.id;
         const newMovie = req.body;
-        await movieService.createMovie(newMovie);
-
+        await movieService.createMovie(newMovie, userId);
         res.redirect('/');
     } catch (err) {
         console.error(err);
         res.status(400).send('Invalid movie data', err.message);
     }
 });
-
 
 // Movie search route
 movieController.get('/search', async (req, res) => {
@@ -37,8 +31,10 @@ movieController.get('/search', async (req, res) => {
 // Movie details route
 movieController.get('/:id/details', async (req, res) => {
     const movieId = req.params.id;
+    const userId = req.user?.id;
     const movie = await movieService.getMovieById(movieId);
-    res.render('details', { movie });
+    const isCreator = movie.creator?.equals(userId);
+    res.render('details', { movie, isCreator });
 });
 
 // Movie attach routes

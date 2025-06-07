@@ -61,7 +61,12 @@ const movieSchema = new mongoose.Schema({
     casts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cast',
-    }]
+    }],
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'Creator is required!']
+    }
 }, {
     timestamps: true 
 }); 

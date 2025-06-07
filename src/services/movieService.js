@@ -3,8 +3,7 @@ import Movie from '../models/Movie.js';
 // object method notation
 export default {
     getAllMovies(filter = {}) {
-        let query = Movie.find();
-        
+        let query = Movie.find();  
         if (filter.search) {
             query = query.find({ title: { $regex: new RegExp(filter.search, 'i') } } );
         }
@@ -14,11 +13,20 @@ export default {
         if (filter.releaseYear) {
             query = query.where('releaseYear').equals(filter.releaseYear);
         }
-
         return query;
     },
-    createMovie(movieData) {
-        const movie = new Movie({...movieData});
+    createMovie(movieData, userId) {
+        const processedData = {
+            ...movieData,
+            creator: userId,
+            genres: typeof movieData.genres === 'string'
+                ? movieData.genres.split(',').map(g => g.trim().toLowerCase())
+                : movieData.genres,
+            category: movieData.category.toLowerCase(),
+            releaseYear: Number(movieData.releaseYear),
+            rating: Number(movieData.rating)
+        };
+        const movie = new Movie(processedData);
         return movie.save();
     },
     async getMovieById(movieId) {
@@ -33,9 +41,4 @@ export default {
         movie.casts.push(castId);
         return movie.save();
     },
-    // async getCastForMovie(movieId){
-    //     const movie = await this.getMovieById(movieId);
-    //     const cast = await Cast.find().in('_id', movie.casts);
-    //     return cast;
-    // }
 } 
