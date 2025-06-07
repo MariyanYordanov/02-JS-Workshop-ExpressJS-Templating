@@ -10,8 +10,8 @@ authController.get("/register", (req, res) => {
 
 authController.post("/register", async (req, res) => {
     try {
-        const userData = req.body;
-        await authService.register(userData);
+        const { email, password, rePassword } = req.body;
+        await authService.register(email, password, rePassword);
         res.redirect("/auth/login");
     } catch (err) {
         console.error(err);
@@ -26,11 +26,11 @@ authController.get("/login", (req, res) => {
 
 authController.post("/login", async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const user = await authService.login(username, password);
-        
-        if (user) {
-            req.session.user = user; // Store user in session
+        const { email, password } = req.body;
+        const token = await authService.login(email, password);
+
+        if (token) {
+            req.session.user = token; // Store user in session
             res.redirect("/");
         } else {
             res.status(401).send("Invalid username or password");
