@@ -1,12 +1,11 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
-function logout() {
-
-}
+const secret = 'qwqermiksdkf45703!@$%#@!@#';
 
 async function register(email, password, rePassword) {
-    return User.create(email, password, rePassword)
+    return User.create({email, password, rePassword})
        .then(user => {
            return user;
        })
@@ -24,7 +23,14 @@ async function login(email, password) {
     if (!isValid) {
         return new Error('Invalid password');
     }
-    return user;
+    const payload = { id: user._id, email: user.email };
+    
+    const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+    return token;
+}
+
+function logout() {
+
 }
 
 export default {

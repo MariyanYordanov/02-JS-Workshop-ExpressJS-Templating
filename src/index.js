@@ -5,12 +5,16 @@ import connectDB from "./config/db.js";
 import hbsConfig from "./config/hbs.js";
 import castController from "./controllers/castController.js";
 import authController from "./controllers/authController.js";
+import cookieParser from "cookie-parser";
 
 // Init express instance
 const app = express();
 
 // Middleware to serve static files
 app.use(express.static('src/public'));
+
+// Add cookie parser
+app.use(cookieParser());
 
 // Add bodyparser
 app.use(express.urlencoded({ extended: true }));

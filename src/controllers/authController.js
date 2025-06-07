@@ -1,5 +1,6 @@
 import { Router } from "express";
 import authService from "../services/authService.js";
+import cookieParser from 'cookie-parser';
 
 const authController = Router();
 
@@ -30,7 +31,7 @@ authController.post("/login", async (req, res) => {
         const token = await authService.login(email, password);
 
         if (token) {
-            req.session.user = token; // Store user in session
+            res.cookie('auth', token);
             res.redirect("/");
         } else {
             res.status(401).send("Invalid username or password");
