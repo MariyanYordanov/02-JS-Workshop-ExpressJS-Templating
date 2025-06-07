@@ -6,6 +6,7 @@ import hbsConfig from "./config/hbs.js";
 import castController from "./controllers/castController.js";
 import authController from "./controllers/authController.js";
 import cookieParser from "cookie-parser";
+import { auth } from "./middlewares/authMiddleware.js";
 
 // Init express instance
 const app = express();
@@ -18,6 +19,9 @@ app.use(cookieParser());
 
 // Add bodyparser
 app.use(express.urlencoded({ extended: true }));
+
+// Add authentication middleware
+app.use(auth);
 
 // Add and coning view engine
 hbsConfig(app);
