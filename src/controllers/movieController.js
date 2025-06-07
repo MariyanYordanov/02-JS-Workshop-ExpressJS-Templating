@@ -57,4 +57,20 @@ movieController.post('/:movieId/cast-attach', async (req, res) => {
     }
 });
 
+// Movie delete route
+movieController.get('/:id/delete', async (req, res) => {
+    const movieId = req.params.id;
+    const isCreator = req.user?.id === (await movieService.getMovieById(movieId)).creator.toString();
+    if (!isCreator) {
+        return res.status(403).send('You are not authorized to delete this movie');
+    }
+    try {
+        await movieService.deleteMovie(movieId);
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.status(400).send('Error deleting movie', err.message);
+    }
+});
+
 export default movieController;
