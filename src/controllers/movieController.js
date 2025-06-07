@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import movieService from '../services/movieService.js';
 import castService from '../services/castService.js';
+import getCategoryOptionsViewData from '../utils/movieUtils.js';
 
 const movieController = Router();
 
@@ -84,11 +85,15 @@ movieController.get('/:id/edit', async (req, res) => {
         return res.status(401).send('You must be logged in to edit a movie');
     }
     const movie = await movieService.getMovieById(movieId);
+    if (!movie) {
+        return res.status(404).send('Movie not found');
+    }
     const isCreator = movie.creator?.equals(userId);
     if (!isCreator) {
         return res.status(403).send('You are not authorized to edit this movie');
     }
-    res.render('edit', { movie });
+    const categoryViewData = getCategoryOptionsViewData(movie.category);
+    res.render('edit', { movie, categories: categoryViewData });
 });
 
 movieController.post('/:id/edit', async (req, res) => {
@@ -117,5 +122,6 @@ movieController.post('/:id/edit', async (req, res) => {
         res.status(400).send('Error updating movie', err.message);
     }
 });
+
 
 export default movieController;
