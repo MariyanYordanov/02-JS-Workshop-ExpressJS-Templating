@@ -35,7 +35,6 @@ async function login(email, password) {
         return new Error('Invalid password');
     }
     const token = generateToken(user);
-    console.log("User logged in successfully");
     return token;
 }
 
