@@ -76,8 +76,15 @@ movieController.get('/:id/delete', async (req, res) => {
 // Movie edit routes
 movieController.get('/:id/edit', async (req, res) => {
     const movieId = req.params.id;
+    if (!movieId) {
+        return res.status(404).send('Movie not found');
+    }
+    const userId = req.user?.id;
+    if (!userId) {
+        return res.status(401).send('You must be logged in to edit a movie');
+    }
     const movie = await movieService.getMovieById(movieId);
-    const isCreator = movie.creator?.equals(movieId);
+    const isCreator = movie.creator?.equals(userId);
     if (!isCreator) {
         return res.status(403).send('You are not authorized to edit this movie');
     }
@@ -86,6 +93,9 @@ movieController.get('/:id/edit', async (req, res) => {
 
 movieController.post('/:id/edit', async (req, res) => {
     const movieId = req.params.id;
+    if (!movieId) {
+        return res.status(404).send('Movie not found');
+    }
     const movieData = req.body;
     const userId = req.user?.id;
     if (!userId) {
