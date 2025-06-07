@@ -11,8 +11,10 @@ authController.get("/register", (req, res) => {
 authController.post("/register", async (req, res) => {
     try {
         const { email, password, rePassword } = req.body;
-        await authService.register(email, password, rePassword);
-        res.redirect("/auth/login");
+        const token = await authService.register(email, password, rePassword);
+        res.cookie('auth', token);
+        console.log("User registered successfully");
+        res.redirect("/");
     } catch (err) {
         console.error(err);
         res.status(400).send("Invalid registration data", err.message);

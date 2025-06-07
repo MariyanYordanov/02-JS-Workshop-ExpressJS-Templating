@@ -4,14 +4,23 @@ import jwt from 'jsonwebtoken';
 import { secret } from '../config/secret.js';
 
 async function register(email, password, rePassword) {
-
-    return User.create({ email, password, rePassword })
+    if (password !== rePassword) {
+        throw new Error('Passwords do not match');
+    }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) { 
+        throw new Error('User with this email already exists');
+    }
+    const user = User.create({ email, password, rePassword })
         .then(user => {
             return user;
         })
         .catch(err => {
             throw new Error(`Registration failed: ${err.message}`);
         });
+    const token = generateToken(user);
+    console.log("User registered successfully");
+    return token;
 }
 
 async function login(email, password) {
@@ -25,10 +34,8 @@ async function login(email, password) {
     if (!isValid) {
         return new Error('Invalid password');
     }
-
-    const payload = { id: user._id, email: user.email };
-    const token = jwt.sign(payload, secret, { expiresIn: '1h' });
-
+    const token = generateToken(user);
+    console.log("User logged in successfully");
     return token;
 }
 
@@ -37,6 +44,12 @@ function logout(req, res) {
     res.locals.user = null;
     req.user = null;
     console.log("User logged out successfully");
+}
+
+function generateToken(user) {
+    const payload = { id: user._id, email: user.email };
+    const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+    return token;
 }
 
 export default {
