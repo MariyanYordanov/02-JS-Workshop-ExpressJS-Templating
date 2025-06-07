@@ -32,8 +32,11 @@ async function login(email, password) {
     return token;
 }
 
-function logout() {
-
+function logout(req, res) {
+    res.clearCookie('auth');
+    res.locals.user = null;
+    req.user = null;
+    console.log("User logged out successfully");
 }
 
 export default {

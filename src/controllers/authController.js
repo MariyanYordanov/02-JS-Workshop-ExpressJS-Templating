@@ -43,12 +43,8 @@ authController.post("/login", async (req, res) => {
 
 // User logout route
 authController.get("/logout", (req, res) => {
-    res.clearCookie('auth');
-    res.locals.user = null; 
-    req.user = null; 
-    console.log("User logged out successfully");
+    authService.logout(req, res);
     res.redirect("/");
-
 });
 
 export default authController;
