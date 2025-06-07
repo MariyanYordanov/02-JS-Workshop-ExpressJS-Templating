@@ -44,4 +44,16 @@ export default {
     async deleteMovie(movieId) {
         return Movie.findByIdAndDelete(movieId);
     },
+    update(movieId, movieData) {
+        const processedData = {
+            ...movieData,
+            genres: typeof movieData.genres === 'string'
+                ? movieData.genres.split(',').map(g => g.trim().toLowerCase())
+                : movieData.genres,
+            category: movieData.category.toLowerCase(),
+            releaseYear: Number(movieData.releaseYear),
+            rating: Number(movieData.rating)
+        };
+        return Movie.findByIdAndUpdate(movieId, processedData, { new: true });
+    }
 } 
