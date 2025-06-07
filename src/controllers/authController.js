@@ -5,7 +5,7 @@ const authController = Router();
 
 // User registration route
 authController.get("/register", (req, res) => {
-    res.render("register");
+    res.render("register", { pageTitle: "Register" });
 });
 
 authController.post("/register", async (req, res) => {
@@ -21,7 +21,7 @@ authController.post("/register", async (req, res) => {
 
 // User login route
 authController.get("/login", (req, res) => {
-    res.render("login");
+    res.render("login", { pageTitle: "Login" });
 });
 
 authController.post("/login", async (req, res) => {

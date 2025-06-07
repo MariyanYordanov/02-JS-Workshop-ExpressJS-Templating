@@ -7,7 +7,8 @@ const movieController = Router();
 
 // Movie create routes
 movieController.get('/create', (req, res) => {
-    res.render('create');
+    const categories = getCategoryOptionsViewData();
+    res.render('create', { pageTitle: 'Create', categories });
 });
 
 movieController.post('/create', async (req, res) => {
@@ -26,7 +27,7 @@ movieController.post('/create', async (req, res) => {
 movieController.get('/search', async (req, res) => {
     const filter = req.query;
     const movies = await movieService.getAllMovies(filter);
-    res.render('search', { movies, filter });
+    res.render('search', { movies, filter, pageTitle: 'Search' });
 });
 
 // Movie details route
@@ -35,7 +36,7 @@ movieController.get('/:id/details', async (req, res) => {
     const userId = req.user?.id;
     const movie = await movieService.getMovieById(movieId);
     const isCreator = movie.creator?.equals(userId);
-    res.render('details', { movie, isCreator });
+    res.render('details', { movie, isCreator, pageTitle: 'Details' });
 });
 
 // Movie attach routes
@@ -43,7 +44,7 @@ movieController.get('/:movieId/cast-attach', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getMovieById(movieId);
     const castMembers = await castService.getAllCastMembers({ exclude: movie.casts});
-    res.render('cast-attach', { movie, castMembers });
+    res.render('cast-attach', { movie, castMembers, pageTitle: 'Attach' });
 });
 
 movieController.post('/:movieId/cast-attach', async (req, res) => {
@@ -93,7 +94,7 @@ movieController.get('/:id/edit', async (req, res) => {
         return res.status(403).send('You are not authorized to edit this movie');
     }
     const categoryViewData = getCategoryOptionsViewData(movie.category);
-    res.render('edit', { movie, categories: categoryViewData });
+    res.render('edit', { movie, categories: categoryViewData, pageTitle: 'Edit'});
 });
 
 movieController.post('/:id/edit', async (req, res) => {

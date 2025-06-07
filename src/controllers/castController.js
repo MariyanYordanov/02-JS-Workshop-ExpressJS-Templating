@@ -1,11 +1,11 @@
-import express from 'express';
+import { Router } from 'express';
 import castService from '../services/castService.js';
 
-const castController = express.Router();
+const castController = Router();
 
 // Cast create routes
 castController.get('/create', (req, res) => {
-    res.render('cast-create');
+    res.render('cast-create', { pageTitle: 'Create' });
 });
 
 castController.post('/create', async (req, res) => {
