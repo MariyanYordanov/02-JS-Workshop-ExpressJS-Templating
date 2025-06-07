@@ -9,6 +9,7 @@ export const auth = (req, res, next) => {
     try {
         const { id, email } = jwt.verify(token, secret);
         req.user = { id, email }; 
+        res.locals.user = { id, email };
         next();
     } catch (err) {
         console.error("Invalid token:", err);
