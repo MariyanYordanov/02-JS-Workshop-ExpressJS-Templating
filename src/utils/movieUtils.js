@@ -1,4 +1,4 @@
-export default function getCategoryOptionsViewData(category) {
+export default function getCategoryOptionsViewData(selectedCategory) {
     const categories = [
         { value: 'movie', title: 'Movie' },
         { value: 'tv-show', title: 'TV Show' },
@@ -6,6 +6,9 @@ export default function getCategoryOptionsViewData(category) {
         { value: 'animation', title: 'Animation' },
         { value: 'short-film', title: 'Short Film' }
     ];
-    const options = categories.map(option => ({ ...option, selected: option.value === category ? 'selected' : '' }));
-    return options;
+
+    return categories.map(cat => ({
+        ...cat,
+        selected: cat.value === selectedCategory ? 'selected' : ''
+    }));
 }

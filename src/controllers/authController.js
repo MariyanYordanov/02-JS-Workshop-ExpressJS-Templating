@@ -17,7 +17,11 @@ authController.post("/register", async (req, res) => {
         res.redirect("/");
     } catch (err) {
         console.error(err);
-        res.status(400).send("Invalid registration data", err.message);
+        res.status(400).render("register", {
+            error: err.message,
+            email: req.body.email,
+            pageTitle: "Register"
+        });
     }
 });
 
@@ -31,15 +35,15 @@ authController.post("/login", async (req, res) => {
         const { email, password } = req.body;
         const token = await authService.login(email, password);
 
-        if (token) {
-            res.cookie('auth', token);
-            res.redirect("/");
-        } else {
-            res.status(401).send("Invalid username or password");
-        }
+        res.cookie('auth', token);
+        res.redirect("/");
     } catch (err) {
         console.error(err);
-        res.status(400).send("Login failed", err.message);
+        res.status(400).render("login", {
+            error: err.message,
+            email: req.body.email,
+            pageTitle: "Login"
+        });
     }
 });
 

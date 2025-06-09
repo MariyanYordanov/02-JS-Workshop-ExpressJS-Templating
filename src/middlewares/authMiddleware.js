@@ -3,17 +3,19 @@ import { secret } from '../config/secret.js';
 
 export const auth = (req, res, next) => {
     const token = req.cookies.auth;
-    if(!token) {
+
+    if (!token) {
         return next();
     }
+
     try {
         const { id, email } = jwt.verify(token, secret);
-        req.user = { id, email }; 
+        req.user = { id, email };
         res.locals.user = { id, email };
         next();
     } catch (err) {
         console.error("Invalid token:", err);
-        res.clearCookie('auth'); 
+        res.clearCookie('auth');
         res.redirect('/auth/login');
     }
 }

@@ -7,33 +7,30 @@ async function register(email, password, rePassword) {
     if (password !== rePassword) {
         throw new Error('Passwords do not match');
     }
+
+    // Проверка за съществуващ потребител
     const existingUser = await User.findOne({ email });
-    if (existingUser) { 
+    if (existingUser) {
         throw new Error('User with this email already exists');
     }
-    const user = User.create({ email, password, rePassword })
-        .then(user => {
-            return user;
-        })
-        .catch(err => {
-            throw new Error(`Registration failed: ${err.message}`);
-        });
+
+    const user = await User.create({ email, password });
     const token = generateToken(user);
     console.log("User registered successfully");
     return token;
 }
 
 async function login(email, password) {
-
     const user = await User.findOne({ email });
     if (!user) {
-        return new Error('User not found');
+        throw new Error('Invalid email or password');
     }
 
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
-        return new Error('Invalid password');
+        throw new Error('Invalid email or password');
     }
+
     const token = generateToken(user);
     return token;
 }
