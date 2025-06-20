@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { secret } from '../config/secret.js';
 
 async function register(email, password, rePassword) {
+   // Проверка за паролите
     if (password !== rePassword) {
         throw new Error('Passwords do not match');
     }

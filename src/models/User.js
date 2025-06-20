@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
             },
             message: 'Password must contain only English letters and digits'
         },
-        maxLength: [6, "Password cannot exceed 6 characters."],
+        maxlength: [6, "Password cannot exceed 6 characters."],
     },
     createdAt: {
         type: Date,
@@ -27,13 +27,13 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// virtual prop for rePassword and check password
-userSchema.virtual("rePassword")
-    .set(function (value) {
-        if(this.password !== value) {
-            throw new Error("Passwords do not match");
-        }
-    });
+// // virtual prop for rePassword and check password
+// userSchema.virtual("rePassword")
+//     .set(function (value) {
+//         if(this.password !== value) {
+//             throw new Error("Passwords do not match");
+//         }
+//     });
 
 // validate user email for english letters and numbers
 userSchema.path("email").validate((email) => {
