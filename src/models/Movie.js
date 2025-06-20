@@ -16,7 +16,10 @@ const movieSchema = new mongoose.Schema({
     category: {
         type: String,
         required: [true,'Category is required!'],
-        enum: ['movie', 'tv-show', 'documentary', 'animation', 'short-film'],
+        enum: { 
+            values: ['movie', 'tv-show', 'documentary', 'animation', 'short-film'],
+            message: (props) => `${props.value} is not a valid category.`
+        }
         default: 'movie',
     },
     genres: {
