@@ -1,11 +1,17 @@
 import mongoose from "mongoose";
 
 const maxYearAllowed = new Date().getFullYear() + 5; // Allow up to 5 years in the future
+// validator for english and digits and white space
+const validCharPattern = /^[a-zA-Z0-9\s]+$/;
+
 const movieSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true,'Title is required!'],
-        trim: true
+        trim: true,
+        validate: [validCharPattern, 'Title must contain only English letters and digits are allow'],
+        minlength: [5, 'Title must be at least 5 characters long.'],
+    }
     },
     category: {
         type: String,
@@ -23,16 +29,20 @@ const movieSchema = new mongoose.Schema({
             message: 'At least one genre is required.'
         },
         lowercase: true,
+        validate: [validCharPattern, 'Title must contain only English letters and digits are allow'],
+        minlength: [5, 'Title must be at least 5 characters long.'],
     },
     director: {
         type: String,
         required: [true,'Director is required!'],
-        trim: true
+        trim: true,
+        validate: [validCharPattern, 'Title must contain only English letters and digits are allow'],
+        minlength: [5, 'Title must be at least 5 characters long.'],
     },
     releaseYear: {
         type: Number,
         required: true,
-        min: 1888, // The year the first film was made
+        min: [1900, 'Year canot be smaller than 1900!'] // The year the first film was made
         max: [maxYearAllowed, `Year canot be larger than ${maxYearAllowed}!`] // Current year
     },
     imageUrl: {
@@ -57,6 +67,8 @@ const movieSchema = new mongoose.Schema({
         required: true,
         trim: true,
         maxlength: [500, 'Description is to long!'] // Optional: limit description length
+        minlength: [20, 'Description must be at least 20 characters long.'],
+        validate: [validCharPattern, 'Title must contain only English letters and digits are allow'],
     },
     casts: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -67,7 +79,8 @@ const movieSchema = new mongoose.Schema({
         ref: 'User',
         required: [true, 'Creator is required!']
     }
-}, {
+}, 
+{
     timestamps: true 
 }); 
 
