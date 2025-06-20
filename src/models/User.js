@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 6,
+        minlength: [6, "Password must be at least 6 characters long."],
         // valid pass must contain only English letters and digits
         validate: {
             validator: function (v) {

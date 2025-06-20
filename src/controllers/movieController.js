@@ -3,6 +3,7 @@ import movieService from '../services/movieService.js';
 import castService from '../services/castService.js';
 import getCategoryOptionsViewData from '../utils/movieUtils.js';
 import { isAuthenticated } from '../middlewares/authMiddleware.js';
+import { get } from 'mongoose';
 
 const movieController = Router();
 
@@ -13,19 +14,22 @@ movieController.get('/create', isAuthenticated, (req, res) => {
 });
 
 movieController.post('/create', isAuthenticated, async (req, res) => {
-    try {
-        const userId = req.user?.id;
-        if (!userId) {
-            return res.redirect('/auth/login');
-        }
 
-        await movieService.createMovie(req.body, userId);
+    const userId = req.user?.id;
+    const newMovie = req.body;
+
+    if (!userId) {
+        return res.redirect('/auth/login');
+    }
+
+    try {
+        
+        await movieService.createMovie(newMovie, userId);
         res.redirect('/');
     } catch (err) {
-        console.error(err);
         res.render('create', {
-            errors: [err.message],
-            movie: req.body
+            error: getErrorMessage(err),
+            movie: newMovie
         });
     }
 });

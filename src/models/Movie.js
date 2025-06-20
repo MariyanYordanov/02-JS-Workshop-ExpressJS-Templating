@@ -43,7 +43,7 @@ const movieSchema = new mongoose.Schema({
     },
     releaseYear: {
         type: Number,
-        required: true,
+        required: [true, 'Release year is required!'],
         min: [1900, 'Year canot be smaller than 1900!'],// The year the first film was made
         max: [maxYearAllowed, `Year canot be larger than ${maxYearAllowed}!`] // Current year
     },
@@ -61,8 +61,8 @@ const movieSchema = new mongoose.Schema({
     rating: {
         type: Number,
         required: [true,'Rating is required!'],
-        min: 0,
-        max: 10
+        min: [0, 'Rating canot be smaller than 0!'],
+        max: [10, 'Rating canot be larger than 10!'], // 10
     }, 
     description: {
         type: String,
