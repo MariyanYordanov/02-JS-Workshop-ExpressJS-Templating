@@ -12,17 +12,15 @@ authController.get("/register", (req, res) => {
 authController.post("/register", async (req, res) => {
     const { email, password, rePassword } = req.body;
     try {
-        
         const token = await authService.register(email, password, rePassword);
         res.cookie('auth', token);
         console.log("User registered successfully");
         res.redirect("/");
     } catch (err) {
         const errorMessage = getErrorMessage(err);
-        console.error(errorMessage);
         res.status(400).render("register", {
             error: errorMessage,
-            email: req.body.email,
+            email,
             pageTitle: "Register"
         });
     }

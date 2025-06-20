@@ -10,8 +10,13 @@ castController.get('/create', isAuthenticated, (req, res) => {
 });
 
 castController.post('/create', isAuthenticated, async (req, res) => {
+    
+    const newCastMember = req.body;
+    if (!newCastMember) {
+        return res.redirect('/', { message: 'Invalid cast data' });
+    }
+
     try {
-        const newCastMember = req.body;
         await castService.createCastMember(newCastMember);
         res.redirect('/');
     } catch (err) {
