@@ -4,12 +4,17 @@ import hbsConfig from "./config/hbs.js";
 import cookieParser from "cookie-parser";
 import { auth } from "./middlewares/authMiddleware.js";
 import routes from "./routes.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Init express instance
 const app = express();
 
 // Middleware to serve static files
-app.use(express.static('src/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Add cookie parser
 app.use(cookieParser());
@@ -20,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // Add authentication middleware
 app.use(auth);
 
-// Add and coning view engine
+// Add and config view engine
 hbsConfig(app);
 
 // Mongoose connection

@@ -1,13 +1,18 @@
 import { engine } from "express-handlebars";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function hbsConfig(app) {
     app.engine('hbs', engine({
         extname: '.hbs',
         defaultLayout: 'main',
-        layoutsDir: 'src/views/layouts/',
-        partialsDir: 'src/views/partials/',
+        layoutsDir: path.join(__dirname, '../views/layouts/'),
+        partialsDir: path.join(__dirname, '../views/partials/'),
         runtimeOptions: {
-            allowProtoPropertiesByDefault: true,    
+            allowProtoPropertiesByDefault: true,
             allowProtoMethodsByDefault: true
         },
         helpers: {
@@ -19,7 +24,7 @@ function hbsConfig(app) {
     }));
 
     app.set('view engine', 'hbs');
-    app.set('views', 'src/views');
+    app.set('views', path.join(__dirname, '../views'));
 }
 
 export default hbsConfig;
