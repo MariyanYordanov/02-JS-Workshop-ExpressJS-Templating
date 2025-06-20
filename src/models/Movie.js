@@ -11,7 +11,6 @@ const movieSchema = new mongoose.Schema({
         trim: true,
         validate: [validCharPattern, 'Title must contain only English letters and digits are allow'],
         minlength: [5, 'Title must be at least 5 characters long.'],
-    }
     },
     category: {
         type: String,
@@ -19,7 +18,7 @@ const movieSchema = new mongoose.Schema({
         enum: { 
             values: ['movie', 'tv-show', 'documentary', 'animation', 'short-film'],
             message: (props) => `${props.value} is not a valid category.`
-        }
+        },
         default: 'movie',
     },
     genres: {
@@ -45,7 +44,7 @@ const movieSchema = new mongoose.Schema({
     releaseYear: {
         type: Number,
         required: true,
-        min: [1900, 'Year canot be smaller than 1900!'] // The year the first film was made
+        min: [1900, 'Year canot be smaller than 1900!'],// The year the first film was made
         max: [maxYearAllowed, `Year canot be larger than ${maxYearAllowed}!`] // Current year
     },
     imageUrl: {
@@ -69,7 +68,7 @@ const movieSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        maxlength: [500, 'Description is to long!'] // Optional: limit description length
+        maxlength: [500, 'Description is to long!'], // Optional: limit description length
         minlength: [20, 'Description must be at least 20 characters long.'],
         validate: [validCharPattern, 'Title must contain only English letters and digits are allow'],
     },
