@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { validate } from "uuid";
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -20,7 +19,7 @@ const userSchema = new mongoose.Schema({
             },
             message: 'Password must contain only English letters and digits'
         },
-        naxLength: [6, "Password cannot exceed 6 characters."],
+        maxLength: [6, "Password cannot exceed 6 characters."],
     },
     createdAt: {
         type: Date,

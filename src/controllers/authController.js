@@ -16,7 +16,7 @@ authController.post("/register", async (req, res) => {
         console.log("User registered successfully");
         res.redirect("/");
     } catch (err) {
-        console.error(err);
+        console.log(Object.values(err.errors).at(0).message);
         res.status(400).render("register", {
             error: err.message,
             email: req.body.email,
