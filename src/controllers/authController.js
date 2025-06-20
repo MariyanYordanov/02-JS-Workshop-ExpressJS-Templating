@@ -1,5 +1,6 @@
 import { Router } from "express";
 import authService from "../services/authService.js";
+import { getErrorMessage } from "../utils/errorUtils.js";
 
 const authController = Router();
 
@@ -9,15 +10,18 @@ authController.get("/register", (req, res) => {
 });
 
 authController.post("/register", async (req, res) => {
+    const { email, password, rePassword } = req.body;
     try {
-        const { email, password, rePassword } = req.body;
+        
         const token = await authService.register(email, password, rePassword);
         res.cookie('auth', token);
         console.log("User registered successfully");
         res.redirect("/");
     } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        console.error(errorMessage);
         res.status(400).render("register", {
-            error: err.message,
+            error: errorMessage,
             email: req.body.email,
             pageTitle: "Register"
         });
